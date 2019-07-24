@@ -1,0 +1,93 @@
+package ${packageName}.controller;
+
+import com.common.aop.Logging;
+import com.common.controller.BaseController;
+import com.common.response.JSONPageResult;
+import com.common.response.JSONResult;
+import com.common.util.BeanCopyUtil;
+import ${packageName}.controller.vo.${lowerEntityName}.${entityName}CreateRequest;
+import ${packageName}.controller.vo.${lowerEntityName}.${entityName}ListReqVo;
+import ${packageName}.controller.vo.${lowerEntityName}.${entityName}RespVo;
+import ${packageName}.controller.vo.${lowerEntityName}.${entityName}UpdateRequest;
+import ${packageName}.api.${entityName}Service;
+import ${packageName}.dto.${lowerEntityName}.${entityName}ListReqDTO;
+import ${packageName}.dto.${lowerEntityName}.${entityName}ReqDTO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import javax.validation.Valid;
+
+/**
+ * @auth guozhenhua
+ * @date ${ctime}
+ */
+@RestController
+@RequestMapping(value = WebsiteUrl.BASE_URL,method = RequestMethod.POST,produces =  MediaType.APPLICATION_JSON_VALUE)
+public class ${entityName}Controller  extends BaseController {
+
+
+    @Autowired
+    ${entityName}Service ${firstLowerEntityName}Service;
+
+    /**
+     * 文章创建
+     */
+    @RequestMapping(value = WebsiteUrl.CREATE_${upperEntityName})
+    @Logging
+    public JSONResult create${entityName}(@RequestBody @Valid ${entityName}CreateRequest ${entityName}CreateRequest, BindingResult result){
+        if (result.hasErrors()){
+            return validateParams(result);
+        }
+        ${entityName}ReqDTO ${firstLowerEntityName}ReqDTO = BeanCopyUtil.copy(${firstLowerEntityName}CreateRequest, ${entityName}ReqDTO.class);
+        JSONResult jsonResult = ${firstLowerEntityName}Service.create${entityName}(${firstLowerEntityName}ReqDTO);
+        return resultReturn(jsonResult);
+    }
+
+    /**
+     * 文章更新
+     */
+    @RequestMapping(value = WebsiteUrl.UPDATE_${upperEntityName})
+    @Logging
+    public JSONResult update${entityName}(@RequestBody @Valid ${entityName}UpdateRequest ${firstLowerEntityName}UpdateRequest, BindingResult result){
+        if (result.hasErrors()){
+            return validateParams(result);
+        }
+        ${entityName}ReqDTO ${firstLowerEntityName}ReqDTO = BeanCopyUtil.copy(${firstLowerEntityName}UpdateRequest, ${entityName}ReqDTO.class);
+        JSONResult jsonResult = ${entityName}Service.update${entityName}(${firstLowerEntityName}ReqDTO);
+        return resultReturn(jsonResult);
+    }
+
+    /**
+     * 文章更新
+     */
+    @RequestMapping(value = WebsiteUrl.GET_${upperEntityName})
+    @Logging
+    public JSONResult<${entityName}RespVo> getById(@PathVariable("id") String id){
+        return resultReturn(${firstLowerEntityName}Service.getById(id),${entityName}RespVo.class);
+    }
+
+    /**
+     * 文章更新
+     */
+    @RequestMapping(value = WebsiteUrl.DEL_${upperEntityName})
+    @Logging
+    public JSONResult del${entityName}(@PathVariable("id") String id){
+        return ${entityName}Service.del${entityName}(id);
+    }
+
+    /**
+     * banner列表
+     */
+    @RequestMapping(value = WebsiteUrl.LIST_${upperEntityName})
+    @Logging
+    public JSONPageResult<${entityName}RespVo> list${entityName}ByPage(@RequestBody @Valid ${entityName}ListReqVo ${entityName}ListReqVo, BindingResult result){
+        if (result.hasErrors()){
+            return validatePageParams(result);
+        }
+        ${entityName}ListReqDTO ${firstLowerEntityName}ListReqDTO = BeanCopyUtil.copy(${firstLowerEntityName}ListReqVo, ${entityName}ListReqDTO.class);
+        JSONPageResult jsonResult = ${firstLowerEntityName}Service.list${entityName}ByPage(${firstLowerEntityName}ListReqDTO);
+        return pageResultReturn(jsonResult,${entityName}RespVo.class);
+    }
+
+}

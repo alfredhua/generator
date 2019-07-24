@@ -1,0 +1,61 @@
+package ${packageName}.dao.mapper;
+import ${packageName}.dto.${lowerEntityName}.${entityName}ListReqDTO;
+import ${packageName}.dto.${lowerEntityName}.${entityName}ReqDTO;
+import org.apache.ibatis.jdbc.SQL;
+
+/**
+ * @auth guozhenhua
+ * @date ${ctime}
+ */
+public class ${entityName}Provider {
+
+    public String create${entityName}(${entityName}ReqDTO ${firstLowerEntityName}ReqDTO) {
+        return new SQL() {
+            {
+                INSERT_INTO("${database}.${tableName}");
+            #foreach($columnEntity in $columnEntityList)
+    if (${firstLowerEntityName}ReqDTO.get${columnEntity.humpName}() != null) {
+                    VALUES("$columnEntity.tableColumnName", "$columnEntity.name");
+                }
+            #end
+            }
+        }.toString();
+    }
+
+    public String update${entityName}(${entityName}ReqDTO ${firstLowerEntityName}ReqDTO) {
+        return new SQL() {
+            {
+                UPDATE("${database}.${tableName}");
+            #foreach($columnEntity in $columnEntityList)
+    if (${firstLowerEntityName}ReqDTO.get${columnEntity.humpName}() != null) {
+                    SET("$columnEntity.tableColumnName = #{$columnEntity.name}");
+                }
+                #end
+                WHERE("id= #{id}");
+            }
+        }.toString();
+    }
+
+    public String list${entityName}ByPage(${entityName}ListReqDTO ${firstLowerEntityName}ListReqDTO) {
+        return new SQL() {
+            {
+                SELECT("#foreach($columnEntity in $columnEntityList)${columnEntity.tableColumnName}#if($foreach.count<$columnEntityList.size()),#end#end");
+                FROM("${database}.${tableName}");
+                ORDER_BY("create_time desc limit "+${firstLowerEntityName}ListReqDTO.getOffset()
+                        +" ,"+${firstLowerEntityName}ListReqDTO.getPageSize());
+            }
+        }.toString();
+    }
+
+    public String list${entityName}Count(${entityName}ListReqDTO ${firstLowerEntityName}ListReqDTO) {
+        return new SQL() {
+            {
+                SELECT("ifnull(count(id),0)");
+                FROM("manage_dictionary.dic_article_type");
+                ORDER_BY("create_time desc limit "+${firstLowerEntityName}ListReqDTO.getOffset()+" ,"
+                         +${firstLowerEntityName}ListReqDTO.getPageSize());
+            }
+        }.toString();
+    }
+
+}
