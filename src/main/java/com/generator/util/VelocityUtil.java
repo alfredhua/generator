@@ -1,15 +1,21 @@
 package com.generator.util;
 
 
-import com.generator.Generator;
 import com.generator.entity.ColumnEntity;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.app.VelocityEngine;
-import java.io.*;
-import java.util.*;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.util.List;
+import java.util.Properties;
+
+import static com.generator.util.PropertiesUtil.*;
 
 /**
  * @auth guozhenhua
@@ -26,12 +32,10 @@ public class VelocityUtil {
         generate(buildApi_vm, buildApi, context1);
     }
 
-    public static void apiEntity(String outPath,String packageName,
-                                 List<ColumnEntity> list,String entityName,
-                                 String entity_vm)throws Exception{
 
+    public static void apiEntity(List<ColumnEntity> list,String entityName, String entity_vm)throws Exception{
         VelocityContext context = new VelocityContext();
-        context.put("packageName", packageName);
+        context.put("packageName", PACKAGE_NAME);
         context.put("entityName", entityName);
         context.put("entity", "entity");
         context.put("columnEntityList", list);
@@ -45,12 +49,10 @@ public class VelocityUtil {
     }
 
 
-    public static void serverVo(String outPath,String packageName,
-                                 List<ColumnEntity> list,String entityName,
-                                 String vo_vm)throws Exception{
+    public static void serverVo(String entityName,String vo_vm)throws Exception{
         String name=entityName+"CreateReqVO";
         VelocityContext context = new VelocityContext();
-        context.put("packageName", packageName);
+        context.put("packageName", PACKAGE_NAME);
         context.put("entityName", entityName);
         context.put("loseEntityName", entityName.toLowerCase());
         context.put("entityNameVO", name);
@@ -86,11 +88,11 @@ public class VelocityUtil {
 
     }
 
-    public static void apiEntityDTO(String outPath, String packageName, String entityName, String entity_dto_vm)throws Exception{
+    public static void apiEntityDTO(String entityName, String entity_dto_vm)throws Exception{
         //reqDTO
         String name=entityName+"ReqDTO";
         VelocityContext context = new VelocityContext();
-        context.put("packageName", packageName);
+        context.put("packageName", PACKAGE_NAME);
         context.put("entityName", entityName);
         context.put("loseEntityName", entityName.toLowerCase());
         context.put("entityNameDTO", name);
@@ -118,9 +120,9 @@ public class VelocityUtil {
     }
 
 
-    public static void apiService(String outPath, String packageName, String entityName, String service_vm)throws Exception {
+    public static void apiService(String entityName, String service_vm)throws Exception {
         VelocityContext context = new VelocityContext();
-        context.put("packageName", packageName);
+        context.put("packageName", PACKAGE_NAME);
         context.put("entityName", entityName);
         context.put("lowerEntityName", entityName.toLowerCase());
         context.put("time",DateTimeUtil.getDate());
@@ -134,9 +136,9 @@ public class VelocityUtil {
     }
 
 
-    public static void apiConstants(String outPath, String packageName, String entityName, String constants_vm)throws Exception {
+    public static void apiConstants( String entityName, String constants_vm)throws Exception {
         VelocityContext context = new VelocityContext();
-        context.put("packageName", packageName);
+        context.put("packageName", PACKAGE_NAME);
         context.put("entityName", entityName);
         context.put("lowerEntityName", entityName.toLowerCase());
         context.put("ctime",DateTimeUtil.getDate());
@@ -150,72 +152,64 @@ public class VelocityUtil {
 
 
 
-    public static void serverMapper(String mapperPath, String database, String tableName,
-                                    String packageName, String entityName, List<ColumnEntity> listColumnEntity,
+    public static void serverMapper(String tableName, String entityName, List<ColumnEntity> listColumnEntity,
                                     String mapper_vm)throws Exception {
 
         VelocityContext context = new VelocityContext();
-        context.put("packageName", packageName);
+        context.put("packageName", PACKAGE_NAME);
         context.put("entityName", entityName);
         context.put("lowerEntityName", entityName.toLowerCase());
-        context.put("database", database);
+        context.put("database", DATABASE);
         context.put("columnEntityList", listColumnEntity);
         context.put("tableName", tableName);
         context.put("firstLowerEntityName",StringUtil.toLowerCaseFirstOne(entityName));
         context.put("ctime",DateTimeUtil.getDate());
-        String entity =mapperPath+"/"+entityName+"Mapper.java";
-        File file=new File(mapperPath);
+        String entity =MAPPER+"/"+entityName+"Mapper.java";
+        File file=new File(MAPPER);
         if (!file.exists()){
             file.mkdirs();
         }
         generate(mapper_vm, entity, context);
     }
 
-    public static void serverMapperProvider(String mapperPath, String database, String tableName,
-                                            String packageName, String entityName, String mapper_vm,
+    public static void serverMapperProvider( String tableName, String entityName, String mapper_vm,
                                             List<ColumnEntity> listColumnEntity)throws Exception {
         VelocityContext context = new VelocityContext();
-        context.put("packageName", packageName);
+        context.put("packageName", PACKAGE_NAME);
         context.put("entityName", entityName);
         context.put("lowerEntityName", entityName.toLowerCase());
-        context.put("database", database);
+        context.put("database", DATABASE);
         context.put("tableName", tableName);
         context.put("columnEntityList", listColumnEntity);
         context.put("firstLowerEntityName",StringUtil.toLowerCaseFirstOne(entityName));
         context.put("ctime",DateTimeUtil.getDate());
-        String entity =mapperPath+"/"+entityName+"Provider.java";
-        File file=new File(mapperPath);
+        String entity =MAPPER_PROVIDER+"/"+entityName+"Provider.java";
+        File file=new File(MAPPER_PROVIDER);
         if (!file.exists()){
             file.mkdirs();
         }
         generate(mapper_vm, entity, context);
     }
 
-
-    public static void serverServiceImpl(String serviceImplPath, String packageName,
-                                         String entityName, String mapper_provider_vm,
-                                         List<ColumnEntity> listColumnEntity)throws Exception {
+    public static void serverServiceImpl(String entityName, String mapper_provider_vm, List<ColumnEntity> listColumnEntity)throws Exception {
         VelocityContext context = new VelocityContext();
-        context.put("packageName", packageName);
+        context.put("packageName", PACKAGE_NAME);
         context.put("entityName", entityName);
         context.put("lowerEntityName", entityName.toLowerCase());
         context.put("columnEntityList", listColumnEntity);
         context.put("firstLowerEntityName",StringUtil.toLowerCaseFirstOne(entityName));
         context.put("ctime",DateTimeUtil.getDate());
-        String entity =serviceImplPath+"/"+entityName+"ServiceImpl.java";
-        File file=new File(serviceImplPath);
+        String entity =SERVICE_IMPL+"/"+entityName+"ServiceImpl.java";
+        File file=new File(SERVICE_IMPL);
         if (!file.exists()){
             file.mkdirs();
         }
         generate(mapper_provider_vm, entity, context);
     }
 
-
-    public static void serverController(String controllerPath, String packageName,
-                                         String entityName, String controller_vm,
-                                         List<ColumnEntity> listColumnEntity)throws Exception {
+    public static void serverController(String entityName, String controller_vm,List<ColumnEntity> listColumnEntity)throws Exception {
         VelocityContext context = new VelocityContext();
-        context.put("packageName", packageName);
+        context.put("packageName", PACKAGE_NAME);
         context.put("entityName", entityName);
         context.put("lowerEntityName", entityName.toLowerCase());
         context.put("upperEntityName", entityName.toUpperCase());
@@ -223,8 +217,8 @@ public class VelocityUtil {
         context.put("columnEntityList", listColumnEntity);
         context.put("firstLowerEntityName",StringUtil.toLowerCaseFirstOne(entityName));
         context.put("ctime",DateTimeUtil.getDate());
-        String entity =controllerPath+"/"+entityName+"Controller.java";
-        File file=new File(controllerPath);
+        String entity =CONTROLLER+"/"+entityName+"Controller.java";
+        File file=new File(CONTROLLER);
         if (!file.exists()){
             file.mkdirs();
         }
@@ -246,7 +240,6 @@ public class VelocityUtil {
     }
 
 
-
     // 递归删除非空文件夹
     public static void deleteDir(File dir) {
         if (dir.isDirectory()) {
@@ -257,8 +250,6 @@ public class VelocityUtil {
         }
         dir.delete();
     }
-
-
 
 
     /**
@@ -287,7 +278,7 @@ public class VelocityUtil {
                     writer.close();
                 }else{
                     //存在的话是否替换
-                    if(Generator.isNewFile){
+                    if(PropertiesUtil.isNewFile){
                         file.delete();
                         file.createNewFile();
                         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(

@@ -21,11 +21,8 @@ public class VmPathUtil {
 
     private static String constants_vm= "/template/api/constants.vm";
 
-
-
     //buildServer文件
     private static String buildServer_vm = "/template/api/server_build.vm";
-
 
     //mapperVm文件
     private static String mapper_vm = "/template/api/mapper.vm";
@@ -41,18 +38,18 @@ public class VmPathUtil {
     private static String vo_vm="/template/api/vo.vm";
 
 
-    public static VmFileEntity getVm(MybatisGeneratorEntity mybatisGeneratorEntity ){
+    public static VmFileEntity getVm( ){
         VmFileEntity vmFileEntity =new VmFileEntity();
         String os = System.getProperty("os.name");
-        String targetServerProject = mybatisGeneratorEntity.getModule() + "/" + mybatisGeneratorEntity.getModule() + "-server";
-        String targetApiProject = mybatisGeneratorEntity.getModule() + "/" + mybatisGeneratorEntity.getModule() + "-api";
+        String targetServerProject = PropertiesUtil.MODULE + "/" + PropertiesUtil.MODULE + "-server";
+        String targetApiProject = PropertiesUtil.MODULE+ "/" +PropertiesUtil.MODULE + "-api";
 
-        File targetServerProjectFile = new File(mybatisGeneratorEntity.getOutPath() + targetServerProject + "/src/main/java/");
+        File targetServerProjectFile = new File(PropertiesUtil.outPath + targetServerProject + "/src/main/java/");
         if (!targetServerProjectFile.exists()){
             targetServerProjectFile.mkdirs();
         }
 
-        File targetApiProjectFile = new File(mybatisGeneratorEntity.getOutPath() + targetApiProject + "/src/main/java/");
+        File targetApiProjectFile = new File(PropertiesUtil.outPath+ targetApiProject + "/src/main/java/");
         if (!targetApiProjectFile.exists()){
             targetApiProjectFile.mkdirs();
         }
