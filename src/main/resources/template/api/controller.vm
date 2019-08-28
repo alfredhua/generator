@@ -31,7 +31,7 @@ public class ${entityName}Controller  extends BaseController {
     ${entityName}Service ${firstLowerEntityName}Service;
 
     /**
-     * 文章创建
+     * 创建
      */
     @RequestMapping(value = WebsiteUrl.CREATE_${upperEntityName})
     @Logging
@@ -45,7 +45,7 @@ public class ${entityName}Controller  extends BaseController {
     }
 
     /**
-     * 文章更新
+     * 更新
      */
     @RequestMapping(value = WebsiteUrl.UPDATE_${upperEntityName})
     @Logging
@@ -59,7 +59,7 @@ public class ${entityName}Controller  extends BaseController {
     }
 
     /**
-     * 文章更新
+     * 获取
      */
     @RequestMapping(value = WebsiteUrl.GET_${upperEntityName})
     @Logging
@@ -68,7 +68,7 @@ public class ${entityName}Controller  extends BaseController {
     }
 
     /**
-     * 文章更新
+     * 删除
      */
     @RequestMapping(value = WebsiteUrl.DEL_${upperEntityName})
     @Logging
@@ -77,7 +77,7 @@ public class ${entityName}Controller  extends BaseController {
     }
 
     /**
-     * banner列表
+     * 列表
      */
     @RequestMapping(value = WebsiteUrl.LIST_${upperEntityName})
     @Logging

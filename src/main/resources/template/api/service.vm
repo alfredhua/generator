@@ -20,7 +20,7 @@ public interface ${entityName}Service {
     JSONResult create${entityName}(${entityName}ReqDTO ${firstLowerEntityName}ReqDTO);
 
     /**
-    * 获取详情
+    * 获取
     * @param id
     * @return
     */

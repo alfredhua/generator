@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Properties;
 
 import static com.generator.util.PropertiesUtil.*;
+import static com.generator.util.PropertiesUtil.outPath;
 
 /**
  * @auth guozhenhua
@@ -25,10 +26,10 @@ public class VelocityUtil {
 
 
 
-    public static void apiBuild(String outPath, String module,String buildApi_vm)throws Exception{
+    public static void apiBuild(String buildApi_vm)throws Exception{
         VelocityContext context1 = new VelocityContext();
-        context1.put("module", module);
-        String buildApi = outPath+module+"/"+module+"-api/build.gradle";
+        context1.put("module", MODULE);
+        String buildApi = outPath+ MODULE+"/"+MODULE+"-api/build.gradle";
         generate(buildApi_vm, buildApi, context1);
     }
 
@@ -40,11 +41,11 @@ public class VelocityUtil {
         context.put("entity", "entity");
         context.put("columnEntityList", list);
         context.put("time",DateTimeUtil.getDate());
-        File file=new File(outPath);
+        File file=new File(API_ENTITY);
         if (!file.exists()){
             file.mkdirs();
         }
-        String entity =outPath+entityName+".java";
+        String entity =API_ENTITY+entityName+".java";
         generate(entity_vm, entity, context);
     }
 
@@ -58,33 +59,32 @@ public class VelocityUtil {
         context.put("entityNameVO", name);
         context.put("type","controller.vo" );
         context.put("time",DateTimeUtil.getDate());
-        File file=new File(outPath+entityName.toLowerCase());
+        File file=new File(VO+entityName.toLowerCase());
         if (!file.exists()){
             file.mkdirs();
         }
-        String entity =outPath+entityName.toLowerCase()+"/"+name+".java";
+        String entity =VO+entityName.toLowerCase()+"/"+name+".java";
         generate(vo_vm, entity, context);
 
         //respVO
         String entityName4=entityName+"UpdateReqVO";
-        String entity4=outPath+entityName.toLowerCase()+"/"+entityName4+".java";
+        String entity4=VO+entityName.toLowerCase()+"/"+entityName4+".java";
         context.put("entityNameVO",entityName4 );
         generate(vo_vm, entity4, context);
 
 
         //respVO
         String entityName2=entityName+"RespVO";
-        String entity2=outPath+entityName.toLowerCase()+"/"+entityName2+".java";
+        String entity2=VO+entityName.toLowerCase()+"/"+entityName2+".java";
         context.put("entityNameVO",entityName2 );
         generate(vo_vm, entity2, context);
 
         //reqListVO
         String entityName3=entityName+"ListReqVO";
-        String entity3=outPath+entityName.toLowerCase()+"/"+entityName3+".java";
+        String entity3=VO+entityName.toLowerCase()+"/"+entityName3+".java";
         context.put("entityNameVO",entityName3 );
         context.put("isListReq",true );
         generate(vo_vm, entity3, context);
-
 
     }
 
@@ -98,22 +98,22 @@ public class VelocityUtil {
         context.put("entityNameDTO", name);
         context.put("type","dto" );
         context.put("time",DateTimeUtil.getDate());
-        File file=new File(outPath+entityName.toLowerCase());
+        File file=new File(API_ENTITY_DTO+entityName.toLowerCase());
         if (!file.exists()){
             file.mkdirs();
         }
-        String entity =outPath+entityName.toLowerCase()+"/"+name+".java";
+        String entity =API_ENTITY_DTO+entityName.toLowerCase()+"/"+name+".java";
         generate(entity_dto_vm, entity, context);
 
         //respDTO
         String entityName2=entityName+"RespDTO";
-        String entity2=outPath+entityName.toLowerCase()+"/"+entityName2+".java";
+        String entity2=API_ENTITY_DTO+entityName.toLowerCase()+"/"+entityName2+".java";
         context.put("entityNameDTO",entityName2 );
         generate(entity_dto_vm, entity2, context);
 
         //reqList
         String entityName3=entityName+"ListReqDTO";
-        String entity3=outPath+entityName.toLowerCase()+"/"+entityName3+".java";
+        String entity3=API_ENTITY_DTO+entityName.toLowerCase()+"/"+entityName3+".java";
         context.put("entityNameDTO",entityName3 );
         context.put("isListReq",true );
         generate(entity_dto_vm, entity3, context);
@@ -127,8 +127,8 @@ public class VelocityUtil {
         context.put("lowerEntityName", entityName.toLowerCase());
         context.put("time",DateTimeUtil.getDate());
         context.put("firstLowerEntityName", StringUtil.toLowerCaseFirstOne(entityName));
-        String entity =outPath+"/"+entityName+"Service.java";
-        File file=new File(outPath);
+        String entity =SERVICE+"/"+entityName+"Service.java";
+        File file=new File(SERVICE);
         if (!file.exists()){
             file.mkdirs();
         }
@@ -142,8 +142,8 @@ public class VelocityUtil {
         context.put("entityName", entityName);
         context.put("lowerEntityName", entityName.toLowerCase());
         context.put("ctime",DateTimeUtil.getDate());
-        String entity =outPath+entityName.toLowerCase()+"/"+entityName+"ErrorEnum.java";
-        File file=new File(outPath+entityName.toLowerCase());
+        String entity =CONSTANTS+entityName.toLowerCase()+"/"+entityName+"ErrorEnum.java";
+        File file=new File(CONSTANTS+entityName.toLowerCase());
         if (!file.exists()){
             file.mkdirs();
         }
@@ -227,10 +227,10 @@ public class VelocityUtil {
 
 
 
-    public static void serverBuild(String outPath, String module,String buildServer_vm)throws Exception{
+    public static void serverBuild(String buildServer_vm)throws Exception{
         VelocityContext context1 = new VelocityContext();
-        context1.put("module", module);
-        String path=outPath+module+"/"+module+"-server";
+        context1.put("module", MODULE);
+        String path=outPath+MODULE+"/"+MODULE+"-server";
         File file=new File(path);
         if (!file.exists()){
             file.mkdirs();
