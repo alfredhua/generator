@@ -12,7 +12,9 @@ import lombok.Setter;
 public class VmFileEntity {
 
     //buildApi文件
-    private  String buildApi_vm;
+    private  String build_api_vm;
+
+    private String build_web_vm;
     // Service模板路径
     private  String service_vm;
 
@@ -26,14 +28,14 @@ public class VmFileEntity {
 
 
     //buildServer文件
-    private  String buildServer_vm ;
+    private  String build_server_vm ;
 
     private String mapper_vm;
 
     private String mapper_provider_vm;
 
     // ServiceImpl模板路径
-    private  String serviceImpl_vm;
+    private  String service_impl_vm;
 
     private String basePath;
 

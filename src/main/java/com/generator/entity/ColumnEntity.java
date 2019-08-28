@@ -13,6 +13,8 @@ public class ColumnEntity {
 
     private String tableColumnName;
 
+    private String humpTableColumnName;
+
     private String name;
 
     private String type;

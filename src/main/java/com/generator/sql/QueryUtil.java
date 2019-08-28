@@ -58,6 +58,7 @@ public class QueryUtil {
             columnEntity.setTableColumnName(tableColumnName);
             columnEntity.setType(map.get("DATA_TYPE")!=null?String.valueOf(map.get("DATA_TYPE")):"");
             columnEntity.setComment(map.get("COLUMN_COMMENT")!=null?String.valueOf(map.get("COLUMN_COMMENT")):"");
+            columnEntity.setHumpTableColumnName(StringUtil.toUpperCaseFirstOne(tableColumnName));
             String s = StringUtil.lineToHump(tableColumnName);
             columnEntity.setHumpName(s);
             columnEntity.setName(StringUtil.toLowerCaseFirstOne(s));

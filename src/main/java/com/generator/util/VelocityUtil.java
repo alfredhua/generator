@@ -33,6 +33,13 @@ public class VelocityUtil {
         generate(buildApi_vm, buildApi, context1);
     }
 
+    public static void webBuild(String buildApi_vm)throws Exception{
+        VelocityContext context1 = new VelocityContext();
+        context1.put("module", MODULE);
+        String buildApi = outPath+ MODULE+"/"+MODULE+"-web/build.gradle";
+        generate(buildApi_vm, buildApi, context1);
+    }
+
 
     public static void apiEntity(List<ColumnEntity> list,String entityName, String entity_vm)throws Exception{
         VelocityContext context = new VelocityContext();

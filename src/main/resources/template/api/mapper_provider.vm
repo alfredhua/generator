@@ -14,8 +14,8 @@ public class ${entityName}Provider {
             {
                 INSERT_INTO("${database}.${tableName}");
             #foreach($columnEntity in $columnEntityList)
-    if (${firstLowerEntityName}ReqDTO.get${columnEntity.humpName}() != null) {
-                    VALUES("$columnEntity.tableColumnName", "$columnEntity.name");
+    if (${firstLowerEntityName}ReqDTO.get${columnEntity.humpTableColumnName}() != null) {
+                    VALUES("$columnEntity.tableColumnName", "$columnEntity.tableColumnName");
                 }
             #end
             }
@@ -27,8 +27,8 @@ public class ${entityName}Provider {
             {
                 UPDATE("${database}.${tableName}");
             #foreach($columnEntity in $columnEntityList)
-    if (${firstLowerEntityName}ReqDTO.get${columnEntity.humpName}() != null) {
-                    SET("$columnEntity.tableColumnName = #{$columnEntity.name}");
+    if (${firstLowerEntityName}ReqDTO.get${columnEntity.humpTableColumnName}() != null) {
+                    SET("$columnEntity.tableColumnName = #{$columnEntity.tableColumnName}");
                 }
                 #end
                 WHERE("id= #{id}");
@@ -41,8 +41,7 @@ public class ${entityName}Provider {
             {
                 SELECT("#foreach($columnEntity in $columnEntityList)${columnEntity.tableColumnName}#if($foreach.count<$columnEntityList.size()),#end#end");
                 FROM("${database}.${tableName}");
-                ORDER_BY("create_time desc limit "+${firstLowerEntityName}ListReqDTO.getOffset()
-                        +" ,"+${firstLowerEntityName}ListReqDTO.getPageSize());
+                ORDER_BY("create_time desc limit "+${firstLowerEntityName}ListReqDTO.getOffset()+" ,"+${firstLowerEntityName}ListReqDTO.getPageSize());
             }
         }.toString();
     }
@@ -52,8 +51,7 @@ public class ${entityName}Provider {
             {
                 SELECT("ifnull(count(id),0)");
                 FROM("manage_dictionary.dic_article_type");
-                ORDER_BY("create_time desc limit "+${firstLowerEntityName}ListReqDTO.getOffset()+" ,"
-                         +${firstLowerEntityName}ListReqDTO.getPageSize());
+                ORDER_BY("create_time desc");
             }
         }.toString();
     }

@@ -21,7 +21,7 @@ public class ${entityName}  implements Serializable {
    * $columnEntity.comment
    */
    #end
-private String $columnEntity.name;
+private String $columnEntity.tableColumnName;
   #elseif("datetime"==$columnEntity.type)
      #if("" != $columnEntity.comment)
 
@@ -29,7 +29,7 @@ private String $columnEntity.name;
     * $columnEntity.comment
     */
    #end
-private LocalDateTime $columnEntity.name;
+private LocalDateTime $columnEntity.tableColumnName;
   #elseif("date"==$columnEntity.type)
      #if("" != $columnEntity.comment)
 
@@ -37,7 +37,7 @@ private LocalDateTime $columnEntity.name;
    * $columnEntity.comment
    */
    #end
-private LocalDate $columnEntity.name;
+private LocalDate $columnEntity.tableColumnName;
     #elseif("text"==$columnEntity.type)
        #if("" != $columnEntity.comment)
 
@@ -45,14 +45,14 @@ private LocalDate $columnEntity.name;
     * $columnEntity.comment
     */
     #end
-private String $columnEntity.name;
+private String $columnEntity.tableColumnName;
     #elseif("int"==$columnEntity.type)
        #if("" != $columnEntity.comment)
     /**
      * $columnEntity.comment
      */
     #end
-private Integer $columnEntity.name;
+private Integer $columnEntity.tableColumnName;
     #elseif("tinyint"==$columnEntity.type)
        #if("" != $columnEntity.comment)
 
@@ -61,7 +61,7 @@ private Integer $columnEntity.name;
      */
      #end
 
-    private Short $columnEntity.name;
+    private Short $columnEntity.tableColumnName;
      #end
   #end
 

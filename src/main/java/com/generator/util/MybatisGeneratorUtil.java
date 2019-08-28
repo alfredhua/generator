@@ -43,7 +43,8 @@ public class MybatisGeneratorUtil {
             // provider
             VelocityUtil.serverMapperProvider(map.get("table_name").toString(),map.get("entity_name").toString(),vmFileEntity.getMapper_provider_vm(),listColumnEntity);
             // serviceImpl
-            VelocityUtil.serverServiceImpl(map.get("entity_name").toString(),vmFileEntity.getServiceImpl_vm(),listColumnEntity);
+            VelocityUtil.serverServiceImpl(map.get("entity_name").toString(),vmFileEntity.getService_impl_vm(),listColumnEntity);
+
 
             // controller
             VelocityUtil.serverController(map.get("entity_name").toString(),vmFileEntity.getController_vm(),listColumnEntity);
@@ -52,15 +53,11 @@ public class MybatisGeneratorUtil {
 
         }
 
-
+        // 生成build.gradle
         if (isBuildGradle) {
-            // 生成server模块下的build.gradle
-            VelocityUtil.serverBuild(vmFileEntity.getBuildServer_vm());
-        }
-
-        // 生成api模块下的build.gradle
-        if (isBuildGradle) {
-            VelocityUtil.apiBuild(vmFileEntity.getBuildApi_vm());
+            VelocityUtil.serverBuild(vmFileEntity.getBuild_server_vm());
+            VelocityUtil.apiBuild(vmFileEntity.getBuild_api_vm());
+            VelocityUtil.webBuild(vmFileEntity.getBuild_web_vm());
         }
 
 

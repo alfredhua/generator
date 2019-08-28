@@ -13,20 +13,20 @@ import java.util.List;
 public interface ${entityName}Mapper {
 
     String sql=" #foreach($columnEntity in $columnEntityList)`${columnEntity.tableColumnName}`#if($foreach.count<$columnEntityList.size()),#end#end ";
-    @Select("select "+sql+" from ${database}.${tableName} where id=#{id} and `is_delete`=1 ")
+    @Select("select "+sql+" from ${database}.${tableName} where id=#{id} and `is_delete`=0 ")
     ${entityName}RespDTO getById(@Param("id") String id);
 
-    @Insert("insert into manage_dictionary.dic_article_type(id,type,name)" +
-            "values (#{id},#{type},#{name})")
+    @Insert("insert into ${database}.${tableName}(#foreach($columnEntity in $columnEntityList)`${columnEntity.tableColumnName}`#if($foreach.count<$columnEntityList.size()),#end#end)" +
+            "values (#foreach($columnEntity in $columnEntityList) #{${columnEntity.tableColumnName}}#if($foreach.count<$columnEntityList.size()),#end#end)")
     void create${entityName}(${entityName}ReqDTO ${firstLowerEntityName}ReqDTO);
 
-    @UpdateProvider(type = ${entityName}Provider.class, method = "update${EntityName}")
+    @UpdateProvider(type = ${entityName}Provider.class, method = "update${entityName}")
     boolean update${entityName}(${entityName}ReqDTO ${firstLowerEntityName}ReqDTO);
 
-    @Update("update ${database}.${tableName} set `is_delete`=0 where id=#{id} and `is_delete`=1 ")
+    @Update("update ${database}.${tableName} set `is_delete`=1 where id=#{id} and `is_delete`=0 ")
     boolean del${entityName}(@Param("id") String id);
 
-    @SelectProvider(type = ${entityName}Provider.class, method = "list${EntityName}ByPage")
+    @SelectProvider(type = ${entityName}Provider.class, method = "list${entityName}ByPage")
     List<${entityName}RespDTO> list${entityName}ByPage(${entityName}ListReqDTO ${firstLowerEntityName}ListReqDTO);
 
     @SelectProvider(type = ${entityName}Provider.class, method = "list${entityName}Count")
