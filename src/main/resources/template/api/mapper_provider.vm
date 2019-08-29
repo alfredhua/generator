@@ -41,6 +41,7 @@ public class ${entityName}Provider {
             {
                 SELECT("#foreach($columnEntity in $columnEntityList)${columnEntity.tableColumnName}#if($foreach.count<$columnEntityList.size()),#end#end");
                 FROM("${database}.${tableName}");
+                WHERE("del=0");
                 ORDER_BY("create_time desc limit "+${firstLowerEntityName}ListReqDTO.getOffset()+" ,"+${firstLowerEntityName}ListReqDTO.getPage_size());
             }
         }.toString();
@@ -50,7 +51,8 @@ public class ${entityName}Provider {
         return new SQL() {
             {
                 SELECT("ifnull(count(id),0)");
-                FROM("manage_dictionary.dic_article_type");
+                FROM("${database}.${tableName}");
+                WHERE("del=0");
                 ORDER_BY("create_time desc");
             }
         }.toString();
