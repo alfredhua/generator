@@ -24,7 +24,7 @@ public interface ${entityName}Service {
     * @param id
     * @return
     */
-    JSONResult getById(String id);
+    JSONResult getById(long id);
 
     /**
      * 更新
@@ -39,7 +39,7 @@ public interface ${entityName}Service {
      * @param id
      * @return
      */
-    JSONResult del${entityName}(String id);
+    JSONResult del${entityName}(long id);
 
 
     /**

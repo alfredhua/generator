@@ -2,6 +2,7 @@ package com.generator.util;
 
 
 import com.generator.entity.ColumnEntity;
+import com.generator.entity.ModuleEntity;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
@@ -64,7 +65,7 @@ public class VelocityUtil {
         context.put("entityName", entityName);
         context.put("loseEntityName", entityName.toLowerCase());
         context.put("entityNameVO", name);
-        context.put("type","controller.vo" );
+        context.put("module",MODULE);
         context.put("time",DateTimeUtil.getDate());
         File file=new File(VO+entityName.toLowerCase());
         if (!file.exists()){
@@ -214,13 +215,14 @@ public class VelocityUtil {
         generate(mapper_provider_vm, entity, context);
     }
 
-    public static void serverController(String entityName, String controller_vm,List<ColumnEntity> listColumnEntity)throws Exception {
+    public static void serverController(String entityName,String tableName, String controller_vm,List<ColumnEntity> listColumnEntity)throws Exception {
         VelocityContext context = new VelocityContext();
         context.put("packageName", PACKAGE_NAME);
         context.put("entityName", entityName);
         context.put("lowerEntityName", entityName.toLowerCase());
-        context.put("upperEntityName", entityName.toUpperCase());
-
+        context.put("upperEntityName", tableName.replace(TABLE_PREFIX,"").toUpperCase());
+        context.put("module",StringUtil.toUpperCaseFirstOne(MODULE));
+        context.put("lowerModule",MODULE);
         context.put("columnEntityList", listColumnEntity);
         context.put("firstLowerEntityName",StringUtil.toLowerCaseFirstOne(entityName));
         context.put("ctime",DateTimeUtil.getDate());
@@ -230,6 +232,24 @@ public class VelocityUtil {
             file.mkdirs();
         }
         generate(controller_vm, entity, context);
+    }
+
+
+    public static void webModuleUrl(List<ModuleEntity> list, String buildServer_vm)throws Exception{
+        VelocityContext context = new VelocityContext();
+
+        context.put("packageName",PACKAGE_NAME);
+        context.put("ctime",DateTimeUtil.getDate());
+        context.put("module",StringUtil.toUpperCaseFirstOne(MODULE));
+        context.put("lowerModule",MODULE.toLowerCase());
+        context.put("entityList", list);
+
+        String entity =CONTROLLER+"/"+StringUtil.toUpperCaseFirstOne(MODULE)+"Url.java";
+        File file=new File(CONTROLLER);
+        if (!file.exists()){
+            file.mkdirs();
+        }
+        generate(buildServer_vm, entity, context);
     }
 
 

@@ -39,6 +39,8 @@ public class VmPathUtil {
 
     private static String vo_vm="/template/api/vo.vm";
 
+    private static String module_vm="/template/api/module_url.vm";
+
 
     public static VmFileEntity getVm( ){
         VmFileEntity vmFileEntity =new VmFileEntity();
@@ -77,6 +79,8 @@ public class VmPathUtil {
 
             vo_vm = MybatisGeneratorUtil.class.getResource(vo_vm).getPath().replaceFirst("/", "");
 
+            module_vm = MybatisGeneratorUtil.class.getResource(module_vm).getPath().replaceFirst("/", "");
+
             basePath = basePath.replaceFirst("/", "");
         } else {
             //mac
@@ -95,6 +99,7 @@ public class VmPathUtil {
             service_impl_vm = MybatisGeneratorUtil.class.getResource(service_impl_vm).getPath();
             vo_vm = MybatisGeneratorUtil.class.getResource(vo_vm).getPath();
 
+            module_vm = MybatisGeneratorUtil.class.getResource(module_vm).getPath();
         }
 
         vmFileEntity.setBuild_api_vm(build_api_vm);
@@ -110,6 +115,7 @@ public class VmPathUtil {
         vmFileEntity.setBasePath(basePath);
         vmFileEntity.setVo_vm(vo_vm);
         vmFileEntity.setBuild_web_vm(build_web_vm);
+        vmFileEntity.setModule_vm(module_vm);
         return vmFileEntity;
     }
 }

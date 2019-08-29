@@ -59,7 +59,7 @@ private Integer $columnEntity.tableColumnName;
      * $columnEntity.comment
      */
     #end
-private long $columnEntity.tableColumnName;
+private Long $columnEntity.tableColumnName;
     #elseif("tinyint"==$columnEntity.type)
        #if("" != $columnEntity.comment)
 

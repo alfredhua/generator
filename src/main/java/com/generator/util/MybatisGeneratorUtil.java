@@ -1,8 +1,11 @@
 package com.generator.util;
 import com.generator.entity.ColumnEntity;
 import com.generator.entity.JDBCEntity;
+import com.generator.entity.ModuleEntity;
 import com.generator.entity.VmFileEntity;
 import com.generator.sql.QueryUtil;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +26,7 @@ public class MybatisGeneratorUtil {
         // 获取所有的当前数据库下的所有的table
         List<Map<String, Object>> tablesList = QueryUtil.getTables(jdbcEntity, DATABASE, TABLE_PREFIX);
 
+        List<ModuleEntity> list=new ArrayList<>();
         // 生成api模块下的entity
         for (Map<String,Object> map:tablesList){
 
@@ -45,13 +49,19 @@ public class MybatisGeneratorUtil {
             // serviceImpl
             VelocityUtil.serverServiceImpl(map.get("entity_name").toString(),vmFileEntity.getService_impl_vm(),listColumnEntity);
 
-
             // controller
-            VelocityUtil.serverController(map.get("entity_name").toString(),vmFileEntity.getController_vm(),listColumnEntity);
+            VelocityUtil.serverController(map.get("entity_name").toString(),map.get("table_name").toString(),vmFileEntity.getController_vm(),listColumnEntity);
 
             VelocityUtil.serverVo(map.get("entity_name").toString(),vmFileEntity.getVo_vm());
 
+            ModuleEntity moduleEntity=new ModuleEntity();
+            moduleEntity.setUp_entity_name(map.get("table_name").toString().replace(TABLE_PREFIX,"").toUpperCase());
+            moduleEntity.setLower_entity_name(map.get("table_name").toString().replace(TABLE_PREFIX,"").replace("_","-").toLowerCase());
+            list.add(moduleEntity);
         }
+
+        VelocityUtil.webModuleUrl(list,vmFileEntity.getModule_vm());
+
 
         // 生成build.gradle
         if (isBuildGradle) {

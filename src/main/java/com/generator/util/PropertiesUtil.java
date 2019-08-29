@@ -42,11 +42,11 @@ public class PropertiesUtil {
     public static String SERVICE_IMPL=serverPath+"/impl";
 
 
-    private static String controllerPath=outPath+MODULE+"/" +MODULE+"-web/src/main/java/"+PACKAGE_NAME.replace(".", "/");
+    private static String controllerPath=outPath+MODULE+"/" +MODULE+"-web/src/main/java/com/web/controller/"+MODULE;
     //controller
-    public static String CONTROLLER=controllerPath+"/controller";
+    public static String CONTROLLER=controllerPath+"/";
     //vo
-    public static String VO=controllerPath+"/controller/vo/";
+    public static String VO=controllerPath+"/vo/";
 
     /**
      * 数据库连接

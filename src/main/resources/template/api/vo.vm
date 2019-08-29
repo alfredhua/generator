@@ -1,4 +1,4 @@
-package ${packageName}.${type}.${loseEntityName};
+package com.web.controller.${module}.vo.${loseEntityName};
 
 import lombok.Getter;
 import lombok.Setter;

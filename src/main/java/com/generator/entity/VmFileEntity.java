@@ -43,6 +43,8 @@ public class VmFileEntity {
 
     private String vo_vm;
 
+    private String module_vm;
+
 
 
 }

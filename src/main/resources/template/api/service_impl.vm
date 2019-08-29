@@ -28,13 +28,13 @@ public class ${entityName}ServiceImpl implements ${entityName}Service {
     @Override
     public JSONResult create${entityName}(${entityName}ReqDTO ${firstLowerEntityName}ReqDTO) {
         ${firstLowerEntityName}ReqDTO.setId(IDGenerate.generateId());
-        ${firstLowerEntityName}ReqDTO.setCreateTime(LocalDateTime.now());
+        ${firstLowerEntityName}ReqDTO.setCreate_time(LocalDateTime.now());
         ${firstLowerEntityName}Mapper.create${entityName}(${firstLowerEntityName}ReqDTO);
         return JSONResult.success();
     }
 
      @Override
-     public JSONResult<${entityName}RespDTO> getById(String id) {
+     public JSONResult<${entityName}RespDTO> getById(long id) {
          return JSONResult.success(${firstLowerEntityName}Mapper.getById(id));
      }
 
@@ -58,8 +58,8 @@ public class ${entityName}ServiceImpl implements ${entityName}Service {
 
     @Override
     public JSONPageResult<${entityName}RespDTO> list${entityName}ByPage(${entityName}ListReqDTO ${firstLowerEntityName}ListReqDTO) {
-        PageBean<${entityName}RespDTO> pageBean = PageUtil.validatePage(${firstLowerEntityName}ListReqDTO.getPageNum(),
-                ${firstLowerEntityName}ListReqDTO.getPageSize(),${firstLowerEntityName}ListReqDTO.getOffset());
+        PageBean<${entityName}RespDTO> pageBean = PageUtil.validatePage(${firstLowerEntityName}ListReqDTO.getPage_num(),
+                ${firstLowerEntityName}ListReqDTO.getPage_size(),${firstLowerEntityName}ListReqDTO.getOffset());
         pageBean.setList(${firstLowerEntityName}Mapper.list${entityName}ByPage(${firstLowerEntityName}ListReqDTO));
         pageBean.setTotal(${firstLowerEntityName}Mapper.list${entityName}Count(${firstLowerEntityName}ListReqDTO));
         return JSONPageResult.success(pageBean);

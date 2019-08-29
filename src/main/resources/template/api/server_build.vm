@@ -3,6 +3,7 @@ version "$projectVersion"
 
 
 jar {
+    baseName='${module}-server'
     version = "$projectVersion"
     enabled=true
 }
