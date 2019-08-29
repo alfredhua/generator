@@ -12,8 +12,6 @@ import static com.generator.util.PropertiesUtil.*;
 public class Generator {
 
 
-
-
 	/**
 	 * 自动代码生成
 	 * @param args
@@ -26,7 +24,5 @@ public class Generator {
 		MybatisGeneratorUtil.generator(jdbcEntity);
 
 	}
-
-
 
 }

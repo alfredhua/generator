@@ -53,6 +53,13 @@ private String $columnEntity.tableColumnName;
      */
     #end
 private Integer $columnEntity.tableColumnName;
+  #elseif("bigint"==$columnEntity.type)
+       #if("" != $columnEntity.comment)
+    /**
+     * $columnEntity.comment
+     */
+    #end
+private long $columnEntity.tableColumnName;
     #elseif("tinyint"==$columnEntity.type)
        #if("" != $columnEntity.comment)
 
