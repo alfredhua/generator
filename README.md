@@ -1,37 +1,38 @@
-# generator
+# 代码生成器
 
 #### 项目介绍
-generator
 
-#### 软件架构
-软件架构说明
+初始化项目，迭代开发，根据表进行代码生成增删改查功能，方便，快捷进行功能开发。
 
 
-#### 安装教程
+#### 技术
 
-1. xxxx
-2. xxxx
-3. xxxx
+1. jdk8
+2. gradle
+3. velocity模块工具
 
-#### 使用说明
+#### 使用教程
 
-1. xxxx
-2. xxxx
-3. xxxx
+1. 将demo.properties的配置文件修改为generator.properties
+2. 修改配置文件中的内容
+   - generator.jdbc.driver 数据库驱动
+   - generator.jdbc.url 数据库连接
+   - generator.jdbc.username 用户名
+   - generator.jdbc.password 密码
+   - databse 数据库名字
+   - table_prefix 表明前缀
+   - module 项目模块名
+   - outPath 输出路径
+   - isBuildGradle 是否构建gradle文件
+   - isNewFile  是否覆盖源文件
+3. 启动com.generator.Generator.class 中main方法即可
+
 
 #### 参与贡献
 
-1. Fork 本项目
-2. 新建 Feat_xxx 分支
-3. 提交代码
-4. 新建 Pull Request
+1. guozhenhua
 
 
-#### 码云特技
+#### 博客网
 
-1. 使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2. 码云官方博客 [blog.gitee.com](https://blog.gitee.com)
-3. 你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解码云上的优秀开源项目
-4. [GVP](https://gitee.com/gvp) 全称是码云最有价值开源项目，是码云综合评定出的优秀开源项目
-5. 码云官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6. 码云封面人物是一档用来展示码云会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+1. 华乐博客 [alfredhua.com](https://alfredhua.com)
